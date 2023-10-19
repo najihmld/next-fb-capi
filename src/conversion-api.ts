@@ -52,6 +52,8 @@ const fbEvent = (event: FBEvent): void => {
 
   setTimeout(() => {
     const serverSidePayload = JSON.stringify({
+      accessToken: event.accessToken,
+      pixelId: event.pixelId,
       eventName: event.eventName,
       eventId,
       emails: event.emails,

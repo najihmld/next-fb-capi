@@ -1,4 +1,6 @@
 export type FBEvent = {
+  accessToken: string,
+  pixelId: string,
   eventName: string
   eventId?: string
   emails?: Array<string> | null

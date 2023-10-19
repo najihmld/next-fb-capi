@@ -3,6 +3,8 @@ import { getClientIpAddress, getClientFbp, getClientFbc } from '../utils/request
 import { sendServerSideEvent } from '../services/server-side-events';
 
 type Arguments = {
+  accessToken: string,
+  pixelId: string,
   eventName: string
   eventId: string
   emails?: Array<string> | null
@@ -37,15 +39,9 @@ const eventHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     });
   }
 
-  if (!process.env.FB_ACCESS_TOKEN) {
-    throw new Error('Missing FB_ACCESS_TOKEN in environment file.');
-  }
-
-  if (!process.env.NEXT_PUBLIC_FB_PIXEL_ID) {
-    throw new Error('Missing NEXT_PUBLIC_FB_PIXEL_ID in environment file.');
-  }
-
   const {
+    accessToken,
+    pixelId,
     eventName,
     eventId,
     emails,
@@ -70,6 +66,8 @@ const eventHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   const payload = {
+    accessToken,
+    pixelId,
     eventName,
     eventId,
     emails,

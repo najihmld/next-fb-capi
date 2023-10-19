@@ -3,6 +3,8 @@ import graphApi from '../api/graph-api';
 import { sha256Hash } from '../utils/hash';
 
 type Arguments = {
+  accessToken: string,
+  pixelId: string,
   eventName: string
   eventId: string
   emails?: Array<string> | null
@@ -54,6 +56,8 @@ type Response = {
  * @constructor
  */
 const sendServerSideEvent = async ({
+  accessToken,
+  pixelId,
   eventName,
   eventId,
   emails,
@@ -131,9 +135,10 @@ const sendServerSideEvent = async ({
     formData.append('test_event_code', testEventCode);
   }
 
-  formData.append('access_token', process.env.FB_ACCESS_TOKEN ?? '');
+  formData.append('access_token', accessToken ?? '');
 
   return graphApi({
+    pixelId,
     endpoint: 'events',
     body: formData,
   });
